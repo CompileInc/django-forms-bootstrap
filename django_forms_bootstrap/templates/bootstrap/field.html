@@ -3,7 +3,7 @@
 {% if field.is_hidden %}
     {{ field }}
 {% else %}
-    <div id="div_{{ field.auto_id }}" class="formGroup {% if field.errors %}hasSuccess{% endif %} {% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    <div id="div_{{ field.auto_id }}" class="formGroup {% if field.errors %}hasError{% endif %} {% if field.css_classes %} {{ field.css_classes }}{% endif %}">
 
         {% if field.label and not field|css_class == "checkboxinput" %}
             <label for="{{ field.auto_id }}" class="controlLabel {% if field.field.required %}required-field{% endif %} {{ css_classes.label }}">
