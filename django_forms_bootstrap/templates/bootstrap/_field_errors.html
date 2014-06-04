@@ -1,3 +1,3 @@
 {% for error in field.errors %}
-    <span id="error_{{ field.auto_id }}_{{ forloop.counter }}" class="errorMsg">{{ error }}</span>
+    <div id="error_{{ field.auto_id }}_{{ forloop.counter }}" class="input-group-addon">{{ error }}</div>
 {% endfor %}
