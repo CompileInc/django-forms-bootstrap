@@ -6,12 +6,42 @@ from django.template.loader import get_template
 register = template.Library()
 
 
+def _preprocess_field(field, form):
+    name = form.fields[field].widget.__class__.__name__.lower()
+    if not name.startswith("radio") and not name.startswith("checkbox"):
+        form.fields[field].widget.attrs["class"] = " form-control"
+
+
 def _preprocess_fields(form):
     for field in form.fields:
-        name = form.fields[field].widget.__class__.__name__.lower()
-        if not name.startswith("radio") and not name.startswith("checkbox"):
-            form.fields[field].widget.attrs["class"] = " form-control"
+        _preprocess_field(field, form)
     return form
+
+
+@register.filter
+def field_as_bootstrap_without_label(field, form):
+    template = get_template("bootstrap/field.html")
+    _preprocess_field(field.name, form)
+
+    c = Context({
+        "form": form,
+        "field": field,
+        'no_label': True,
+    })
+    return template.render(c)
+
+
+@register.filter
+def field_as_bootstrap(field, form):
+    template = get_template("bootstrap/field.html")
+    _preprocess_field(field.name, form)
+
+    c = Context({
+        "form": form,
+        "field": field,
+        'print_label': True,
+    })
+    return template.render(c)
 
 
 @register.filter

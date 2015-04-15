@@ -5,7 +5,7 @@
 {% else %}
     <div id="div_{{ field.auto_id }}" class="formGroup {% if field.errors %}hasError{% endif %} {% if field.css_classes %} {{ field.css_classes }}{% endif %}">
 
-        {% if field.label and not field|css_class == "checkboxinput" %}
+        {% if not no_label and field.label and not field|css_class == "checkboxinput" %}
             <label for="{{ field.auto_id }}" class="controlLabel {% if field.field.required %}required-field{% endif %} {{ css_classes.label }}">
                 {{ field.label|safe }}
             </label>
